@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block title %}View {{ model.__name__ }}{% endblock %}
+{% block content %}
+    <h1>View {{ model.__name__ }}</h1>
+    <table>
+        {% for column in model.__table__.columns %}
+            <tr>
+                <th>{{ column.name }}</th>
+                <td>{{ record | getattr(column.name) }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <div class="actions">
+        <a href="{{ url_for('update_record', table=model.__name__, id=record | getattr(model.__table__.primary_key.columns.values()[0].name)) }}" class="btn">Edit</a>
+        <form method="POST" action="{{ url_for('delete_record', table=model.__name__, id=record | getattr(model.__table__.primary_key.columns.values()[0].name)) }}" style="display:inline;">
+            <input type="submit" value="Delete" onclick="return confirm('Are you sure?');" class="btn btn-danger">
+        </form>
+        <a href="{{ url_for('read_all_records', table=model.__name__) }}" class="btn btn-secondary">Back to List</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block title %}{{ table.capitalize() }} Records{% endblock %}
+{% block content %}
+    <h1>{{ table.capitalize() }} Records</h1>
+    <a href="{{ url_for('create_record', table=table) }}" class="btn">Create New {{ table.capitalize() }}</a>
+    <table>
+        <thead>
+            <tr>
+                {% for column in columns %}
+                    <th>{{ column.name.capitalize() }}</th>
+                {% endfor %}
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+                <tr>
+                    {% for column in columns %}
+                        <td>{{ record|getattr(column.name) }}</td>
+                    {% endfor %}
+                    <td class="actions">
+                        <a href="{{ url_for('read_record', table=table, id=record|getattr(primary_key)) }}" class="btn btn-small">View</a>
+                        <a href="{{ url_for('update_record', table=table, id=record|getattr(primary_key)) }}" class="btn btn-small">Edit</a>
+                        <a href="{{ url_for('delete_record', table=table, id=record|getattr(primary_key)) }}" class="btn btn-small btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Tables List</a>
+{% endblock %}

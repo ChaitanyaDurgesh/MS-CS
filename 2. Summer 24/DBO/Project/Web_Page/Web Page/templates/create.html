@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}Create {{ model.__name__ }}{% endblock %}
+{% block content %}
+    <h1>Create {{ model.__name__ }}</h1>
+    <form method="POST">
+        {% for column in model.__table__.columns %}
+            <div class="form-group">
+                <label for="{{ column.name }}">{{ column.name }}:</label>
+                <input type="text" id="{{ column.name }}" name="{{ column.name }}" required>
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a href="{{ url_for('read_all_records', table=model.__name__) }}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

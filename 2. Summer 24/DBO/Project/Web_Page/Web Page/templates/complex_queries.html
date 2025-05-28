@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block title %}Complex Queries{% endblock %}
+{% block content %}
+    <h1>Complex Queries Results</h1>
+
+    <h2>1. Set Operation (UNION)</h2>
+    <table>
+        <tr><th>Flight ID</th><th>Airport ID</th></tr>
+        {% for flight_id, airport_id in union_query %}
+            <tr><td>{{ flight_id }}</td><td>{{ airport_id }}</td></tr>
+        {% endfor %}
+    </table>
+
+    <h2>2. Aggregate Function (COUNT)</h2>
+    <table>
+        <tr><th>Country</th><th>Airline Count</th></tr>
+        {% for country, count in count_query %}
+            <tr><td>{{ country }}</td><td>{{ count }}</td></tr>
+        {% endfor %}
+    </table>
+
+    <h2>3. Set Membership (IN)</h2>
+    <table>
+        <tr><th>Flight ID</th><th>Airline ID</th></tr>
+        {% for flight in in_query %}
+            <tr><td>{{ flight.FlightID }}</td><td>{{ flight.AirlineID }}</td></tr>
+        {% endfor %}
+    </table>
+
+    <h2>4. Set Comparison (EXISTS)</h2>
+    <table>
+        <tr><th>Passenger ID</th><th>First Name</th><th>Surname</th></tr>
+        {% for passenger in exists_query %}
+            <tr><td>{{ passenger.PassengerID }}</td><td>{{ passenger.First_name }}</td><td>{{ passenger.surname }}</td></tr>
+        {% endfor %}
+    </table>
+
+    <h2>5. Subquery using WITH clause</h2>
+    <table>
+        <tr><th>Passenger ID</th><th>First Name</th><th>Surname</th><th>Booking Count</th></tr>
+        {% for passenger_id, first_name, surname, booking_count in with_query %}
+            <tr><td>{{ passenger_id }}</td><td>{{ first_name }}</td><td>{{ surname }}</td><td>{{ booking_count }}</td></tr>
+        {% endfor %}
+    </table>
+
+    <h2>6. OLAP Query (CUBE)</h2>
+    <table>
+        <tr><th>Airline ID</th><th>Year</th><th>Month</th><th>Flight Count</th></tr>
+        {% for airline_id, year, month, flight_count in olap_query %}
+            <tr><td>{{ airline_id or 'All' }}</td><td>{{ year or 'All' }}</td><td>{{ month or 'All' }}</td><td>{{ flight_count }}</td></tr>
+        {% endfor %}
+    </table>
+
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Tables List</a>
+{% endblock %}

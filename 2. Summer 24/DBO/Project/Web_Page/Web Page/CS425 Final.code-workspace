@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"sqltools.connections": [
+			{
+				"mysqlOptions": {
+					"authProtocol": "xprotocol",
+					"enableSsl": "Disabled"
+				},
+				"previewLimit": 50,
+				"server": "localhost",
+				"port": 33060,
+				"driver": "MySQL",
+				"name": "MYSQLfirst",
+				"database": "CS425Project",
+				"username": "Chayy",
+				"password": "370HSSv#",
+				"connectionTimeout": 30
+			}
+		]
+	}
+}
