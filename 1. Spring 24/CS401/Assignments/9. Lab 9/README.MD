@@ -1,0 +1,2 @@
+javac BinarySearchTree.java
+java BinarySearchTree

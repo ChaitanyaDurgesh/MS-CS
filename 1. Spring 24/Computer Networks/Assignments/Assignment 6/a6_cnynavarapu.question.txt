@@ -1,0 +1,32 @@
+CS542 Spring 2024, Assignment 6
+For this assignment use the accompanying Jupyter notebook on FABRIC.
+
+Question 1: (1 mark)
+Use Caper to expand this pcap expression:
+tcp[0:2] = tcp[4:2] && tcp src port 1111 && tcp[8:4] = 0
+
+Question 2: (1 mark)
+Use Caper to compile this pcap expression into BPF (unoptimized):
+icmp6 && (ip6[40] == 1 || ip6[40] == 2)
+
+Question 3: (3 mark)
+Work out the pcap expression that matches the following BPF code. Once you have formed a pcap expression, expand it using Caper, and write that down as your answer.
+l000: ldh [12]
+l001: jeq #0x800 , l002 , l010
+l002: ldb [23]
+l003: jeq #0x11 , l004 , l010
+l004: ldh [20]
+l005: jset #0x1fff , l010 , l006
+l006: ldxb 4 * ([14] & 0xf)
+l007: ldh [x + 16]
+l008: jeq #0x1e81 , l009 , l010
+l009: ret #262144
+l010: ret #0
+
+(Extra credit) Question 4: (2.5 marks)
+Write a Scapy program that generates a .pcap file containing 5 distinct packets, each of which are ACCEPTED by the filter in Question 3.
+You can check the pcap file by using the 'filter' program in your notebook, and confirming that the pcap file is processed as expected.
+
+(Extra credit) Question 5: (2.5 marks)
+Write a Scapy program that generates a .pcap file containing 5 distinct packets, each of which are NOT ACCEPTED by the filter in Question 3.
+You can check the pcap file by using the 'filter' program in your notebook, and confirming that the pcap file is processed as expected.
